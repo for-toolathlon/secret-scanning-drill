@@ -1,16 +1,22 @@
-# Secret Scanning Training Notes
+# Secret Scanning Notes
 
 ## What secret scanning does
-Secret scanning automatically scans code and other repository content for leaked credentials and secret patterns. It works on every push and on pull requests, analyzing files in tracked languages. When it finds something that matches a known secret format (like an API key, token, password, or private key), it creates an alert in the repository's security tab (e.g., GitHub's security overview). The alerts are linked to an advisory, labeled, and can be resolved by the repository owner or team member.
+GitHub's secret scanning automatically scans the code in public and private repositories for leaked credentials (secret scanning for private repositories). When a secret is detected, it is alerted to repository administrators and security teams. The workflow detects credentials in commits, branches, and pull requests, and it works on open-source as well as proprietary code. Detections are reported as secret scanning alerts in the repository security tab.
 
 ## How alerts are surfaced and resolved
-Alerts are surfaced as "secret scanning alerts" on the security tab of the repository. Each alert is a single line indicating a matched pattern, its likely location, and how to remediate. Alerts can be resolved. By default, resolved alerts with high confidence from trusted sources can be auto-dismissed, and they can also be manually dismissed by a site admin. Review and resolve alerts individually, or request delegated dismissal for teams.
+When secret scanning finds a credential, it creates a secret scanning alert in the repository. Each alert links to the specific file and line of code where the secret was found and shows details about the secret type. Alerts can be resolved by editing the code to remove the secret or by configuring a bypass request (delegated bypass) for specific patterns or categories. Alerts are visible in the repository's security alerts and can be tracked among issues.
 
-## Example secret types scanned
-- API keys (e.g., GitHub tokens, personal access tokens)
-- SSH keys (including private keys)
-- Database credentials (passwords, connection strings)
-- AWS credentials (access keys, secret keys)
-- Other keys and tokens (e.g., Slack, Google API keys)
+## Example secret types it detects
+- AWS access keys (e.g., `AKIA...`, access keys for AWS IAM users)
+- GitHub personal access tokens (PATs) and GitHub OAuth tokens
+- Docker registry credentials and tokens
+- Kubernetes secrets and tokens
+- NuGet API tokens and packages credentials
+- npm/internal registry API tokens
+- PostgreSQL, MySQL, and other database credentials
+- Google Cloud Platform service account keys
 
-Reference: GitHub documentation — Secret scanning (https://docs.github.com/en/code-security/secret-scanning) and Supported secret scanning patterns (https://docs.github.com/en/code-security/secret-scanning/secret-scanning-patterns)
+## Documentation references
+- Secret scanning overview: https://docs.github.com/en/code-security/secret-scanning
+- Secret types reference: https://docs.github.com_files/en/code-security/secret-scanning/secret-types
+- Secret scanning alerts: https://docs.github.com/en/code-code-security/secret-scanning/secret-scanning-alerts
